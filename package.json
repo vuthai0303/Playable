@@ -1,0 +1,14 @@
+{
+  "name": "Playable",
+  "uuid": "0fa83a28-b62d-4019-9763-d443699bcf24",
+  "creator": {
+    "version": "3.7.4",
+    "registry": {
+      "remote": {}
+    },
+    "dependencies": {
+      "plugin-import-2x": "1.1.10",
+      "localization-editor": "1.0.1"
+    }
+  }
+}

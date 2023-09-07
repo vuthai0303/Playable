@@ -1,0 +1,22 @@
+{
+  "__version__": "1.0.4",
+  "custom_joint_texture_layouts": [],
+  "general": {
+    "designResolution": {
+      "width": 540,
+      "height": 960,
+      "fitWidth": true,
+      "fitHeight": false
+    }
+  },
+  "layer": [
+    {
+      "name": "Backgound",
+      "value": 1
+    },
+    {
+      "name": "UI",
+      "value": 2
+    }
+  ]
+}
