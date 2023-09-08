@@ -1,4 +1,5 @@
-import { _decorator, Component, director, instantiate, Label, math, Node, Prefab, size, SpriteFrame, UITransform, Vec3 } from 'cc';
+import { _decorator, Component, instantiate, Label, math, Node, Prefab, UITransform, Vec3 } from 'cc';
+import { ColorRowOnMouseMove } from './ColorRowOnMouseMove';
 const { ccclass, property } = _decorator;
 
 @ccclass('GamePlay')
@@ -28,15 +29,16 @@ export class GamePlay extends Component {
     lstArrow:Array<Node>
 
     start() {
-        this.currentPlayIdx = -2;
+        this.currentPlayIdx = 2;
         this.calLstYellowRect();
     }
 
     public calLstYellowRect(){
         let mColNode:Node = this.lstColNum[-this.currentPlayIdx + 2];
+        if(!mColNode) return;
         let lstChild:Array<Node> = mColNode.children;
-        this.lstYellowRect = new Array(lstChild.length);
-        this.lstArrow = new Array(lstChild.length);
+        this.lstYellowRect = new Array();
+        this.lstArrow = new Array();
         let isFirst:boolean = false;
         lstChild = lstChild.reverse();
         lstChild.forEach(element => {
@@ -64,10 +66,10 @@ export class GamePlay extends Component {
                 let arrow:Node = instantiate(prefab);
                 arrow.parent = this.mCanvas;
                 arrow.getComponent(UITransform).setContentSize(math.size(dis, 84));
-                // arrow.setPosition(new Vec3(mColNode.position.x + dis/2,mColNode.position.y - 42,0));
                 arrow.setWorldPosition(new Vec3(element.worldPosition.x + dis/2,element.worldPosition.y - 42,0));
+                this.lstArrow.push(arrow);
             }
-            
+            yellowRectNode.getComponent(ColorRowOnMouseMove).idx = this.lstYellowRect.length;
             this.lstYellowRect.push(yellowRectNode);
         });
     }
@@ -77,12 +79,24 @@ export class GamePlay extends Component {
     }
 
     public changePlayIdx(){
-        this.currentPlayIdx++;
+        this.currentPlayIdx--;
+        this.clearLstYellowRect();
+        this.clearLstArrow();
+        this.calLstYellowRect();
+    }
+
+    public clearLstArrow(){
+        this.lstArrow.forEach(element => {
+            element.destroy();
+        });
+        this.lstArrow = [];
+    }
+
+    public clearLstYellowRect(){
         this.lstYellowRect.forEach(element => {
             element.destroy();
         });
         this.lstYellowRect = [];
-        this.calLstYellowRect();
     }
 }
 

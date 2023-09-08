@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, math, Node, Prefab, Vec2, Vec3 } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, Vec2, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
 export class Cell{
@@ -16,20 +16,20 @@ export default class SpawnCell extends Component {
     cellPrefab: Prefab
     @property(Node)
     boxSelect: Node
+    GamePlayNode: Node
 
     size:number = 5
     lstCell: Array<Cell>
     lstNodeCell: Array<Node>
 
     start() {
-        this.lstCell = new Array(this.size * this.size);
-        this.lstNodeCell = new Array(this.size * this.size);
+        this.lstCell = new Array();
+        this.lstNodeCell = new Array();
         this.createListCell();
         this.spawnBoxSelect();
     }
 
     update(deltaTime: number) {
-        
     }
 
     public createListCell(){

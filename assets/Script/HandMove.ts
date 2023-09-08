@@ -17,18 +17,18 @@ export class HandMove extends Component {
     start() {
         this.parent = this.node.getParent();
         this.range = Math.floor(this.parent.getComponent(UITransform).width / 2) - this.offset;
-        console.log(this.range);
         this.node.setPosition(new Vec3(-this.range, this.posY, 0));
         this.direction = new Vec3(1,0,0);
         this.speed = 300;
     }
 
     update(deltaTime: number) {
-        if(Math.abs(this.node.position.x) >= this.range){
-            this.direction.x *= -1;
-        }
         let newPosition: Vec3 = this.node.position;
         newPosition.x += this.direction.x * this.speed * deltaTime;
+        if(Math.abs(this.node.position.x) >= this.range){
+            newPosition.x = this.direction.x * this.range;
+            this.direction.x *= -1;
+        }
         this.node.setPosition(newPosition);
     }
 }
